@@ -20,7 +20,7 @@ INSTALL
 
 The repository is an Android Studio project.
 
-To just install the app, download images/ onto your Android device and install it.
+To just install the app, download the .apk file in latest/ onto your Android device and install it.
 
 =================
 BUGS AND FEATURES
