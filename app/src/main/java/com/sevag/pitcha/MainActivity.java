@@ -25,9 +25,6 @@ public class MainActivity extends Activity implements UIHelper {
     }
 
     private void launchPitcha() {
-        noteOutputTextView.setText("Pitcha");
-        freqOutputTextView.setText("Initializing");
-
         audioThread = new Thread(new Runnable() {
             public void run() {
                 android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);

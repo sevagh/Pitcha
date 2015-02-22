@@ -7,20 +7,43 @@
     android:id="@+id/action_settings"
     android:background="@android:color/black">
 
-    <TextView android:text="@string/note_output_text" android:layout_width="wrap_content"
+    <TextView android:text="Pitcha" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/noteOutputTextView"
+        android:id="@+id/titleOutputTextView"
         android:textColor="@android:color/white"
-        android:layout_above="@+id/freqOutputTextView"
-        android:layout_marginBottom="40px"
+        android:layout_marginTop="50px"
         android:layout_centerHorizontal="true"
         android:textSize="20pt"/>
 
+    <TextView android:text="github.com/sevagh" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subtitleOutputTextView"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/titleOutputTextView"
+        android:layout_centerHorizontal="true"
+        android:textSize="12pt"/>
+
     <TextView android:text="" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/freqOutputTextView"
+        android:id="@+id/dummyTextView"
         android:textColor="@android:color/white"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:textSize="15pt"/>
+
+    <TextView android:text="note" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noteOutputTextView"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/dummyTextView"
+        android:layout_centerHorizontal="true"
+        android:textSize="15pt"/>
+
+    <TextView android:text="hz" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/freqOutputTextView"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/noteOutputTextView"
         android:textSize="10pt"/>
 </RelativeLayout>
