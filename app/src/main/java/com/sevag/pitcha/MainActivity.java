@@ -8,11 +8,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sevag.pitcha.recording.AudioRecorder;
+import com.sevag.pitcha.uihelper.NeedleGauge;
 import com.sevag.pitcha.uihelper.UIHelper;
 
 public class MainActivity extends Activity implements UIHelper {
 
     private TextView noteOutputTextView, freqOutputTextView;
+    private NeedleGauge needleGauge;
     private Thread audioThread;
 
     @Override
@@ -22,6 +24,7 @@ public class MainActivity extends Activity implements UIHelper {
 
         noteOutputTextView = (TextView) findViewById(R.id.noteOutputTextView);
         freqOutputTextView = (TextView) findViewById(R.id.freqOutputTextView);
+        needleGauge = (NeedleGauge) findViewById(R.id.needlegauge);
     }
 
     private void launchPitcha() {
@@ -40,8 +43,9 @@ public class MainActivity extends Activity implements UIHelper {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                noteOutputTextView.setText(note);
-                freqOutputTextView.setText(freq);
+                //noteOutputTextView.setText(note);
+                //freqOutputTextView.setText(freq);
+                needleGauge.setHandTarget(Float.parseFloat(freq));
             }
         });
     }
