@@ -22,8 +22,6 @@ public class AudioRecorder {
     private static int N;
     private static UIHelper uiHelper;
 
-    private static final int SLEEP_AMOUNT_MILLIS = 100;
-
     public AudioRecorder() {
     }
 
@@ -43,7 +41,6 @@ public class AudioRecorder {
                 double pitch = mpm.getPitchFromShort(data);
                 NotePitchMap.getNoteOf(pitch, uiHelper);
                 recorder.stop();
-                Thread.sleep(SLEEP_AMOUNT_MILLIS);
             } catch (Throwable x) {
                 System.exit(-1);
             }
