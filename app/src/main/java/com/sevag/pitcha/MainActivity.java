@@ -5,7 +5,6 @@ import android.os.*;
 import android.os.Process;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.sevag.pitcha.recording.AudioRecorder;
 import com.sevag.pitcha.gauge.NeedleGauge;
@@ -13,7 +12,6 @@ import com.sevag.pitcha.uihelper.UIHelper;
 
 public class MainActivity extends Activity implements UIHelper {
 
-    private TextView noteOutputTextView, freqOutputTextView;
     private NeedleGauge needleGauge;
     private Thread audioThread;
 
@@ -22,8 +20,6 @@ public class MainActivity extends Activity implements UIHelper {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        noteOutputTextView = (TextView) findViewById(R.id.noteOutputTextView);
-        freqOutputTextView = (TextView) findViewById(R.id.freqOutputTextView);
         needleGauge = (NeedleGauge) findViewById(R.id.needlegauge);
     }
 
@@ -39,13 +35,11 @@ public class MainActivity extends Activity implements UIHelper {
     }
 
     @Override
-    public void display(final String note, final double freq) {
+    public void display(final String note, final double err) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //noteOutputTextView.setText(note);
-                //freqOutputTextView.setText(freq);
-                needleGauge.setHandTarget(note, freq);
+                needleGauge.setHandTarget(note, err);
             }
         });
     }

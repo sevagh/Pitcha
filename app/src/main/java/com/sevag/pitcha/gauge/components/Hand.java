@@ -1,6 +1,7 @@
 package com.sevag.pitcha.gauge.components;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
@@ -15,6 +16,7 @@ public class Hand {
     public boolean handInitialized = false;
     public float handPosition = Scale.CENTER_VALUE;
     public float handTarget = Scale.CENTER_VALUE;
+    public String handText = "";
     public float handVelocity = 0.0f;
     public float handAcceleration = 0.0f;
     public long lastHandMoveTime = -1L;
@@ -22,14 +24,24 @@ public class Hand {
     private Paint handPaint;
     private Path handPath;
     private Paint handScrewPaint;
+    private Paint handTextPaint;
+
+    private Canvas canvas;
 
     public Hand(View view) {
         this.parentView = view;
 
         handPaint = new Paint();
         handPaint.setAntiAlias(true);
-        handPaint.setColor(0xff392f2c);
+        handPaint.setColor(Color.MAGENTA);
         handPaint.setStyle(Paint.Style.FILL);
+
+        /*
+        handTextPaint = new Paint();
+        handTextPaint.setAntiAlias(true);
+        handTextPaint.setColor(Color.GREEN);
+        handTextPaint.setStyle(Paint.Style.FILL);
+        */
 
         handPath = new Path();
         handPath.moveTo(0.5f, 0.5f + 0.2f);
@@ -42,33 +54,21 @@ public class Hand {
 
         handScrewPaint = new Paint();
         handScrewPaint.setAntiAlias(true);
-        handScrewPaint.setColor(0xff493f3c);
+        handScrewPaint.setColor(Color.CYAN);
         handScrewPaint.setStyle(Paint.Style.FILL);
     }
 
-    public Paint getHandPaint() {
-        return this.handPaint;
+    public void setCanvas(Canvas canvasParam) {
+        this.canvas = canvasParam;
     }
 
-    public Paint getHandScrewPaint() {
-        return this.handScrewPaint;
-    }
+    public void drawHand() {
+        float handAngle = degreeToAngle(handPosition);
+        canvas.rotate(handAngle, 0.5f, 0.5f);
+        canvas.drawPath(handPath, handPaint);
+        //canvas.drawText(handText, 0, 0, handTextPaint);
 
-    public Path getHandPath() {
-        return this.handPath;
-    }
-
-    public void drawHand(Canvas canvas) {
-        if (handInitialized) {
-            System.out.println("Drawing hand!");
-            float handAngle = degreeToAngle(handPosition);
-            canvas.save(Canvas.MATRIX_SAVE_FLAG);
-            canvas.rotate(handAngle, 0.5f, 0.5f);
-            canvas.drawPath(handPath, handPaint);
-            canvas.restore();
-
-            canvas.drawCircle(0.5f, 0.5f, 0.01f, handScrewPaint);
-        }
+        canvas.drawCircle(0.5f, 0.5f, 0.01f, handScrewPaint);
     }
 
     private float degreeToAngle(float degree) {
@@ -79,19 +79,10 @@ public class Hand {
         return Math.abs(handPosition - handTarget) > 0.01f;
     }
 
-    private float getRelativePosition() {
-        if (handPosition < Scale.CENTER_VALUE) {
-            return - (Scale.CENTER_VALUE - handPosition) / (float) (Scale.CENTER_VALUE - Scale.MIN_VALUE);
-        } else {
-            return (handPosition - Scale.CENTER_VALUE) / (float) (Scale.MAX_VALUE - Scale.CENTER_VALUE);
-        }
-    }
-
     public void moveHand() {
         if (!handNeedsToMove()) {
             return;
         }
-
         if (lastHandMoveTime != -1L) {
             long currentTime = System.currentTimeMillis();
             float delta = (currentTime - lastHandMoveTime) / 1000.0f;

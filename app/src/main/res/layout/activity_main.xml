@@ -10,7 +10,7 @@
     <TextView android:text="github.com/sevagh" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/titleOutputTextView"
-        android:textColor="@android:color/white"
+        android:textColor="#00ffff"
         android:layout_marginTop="50px"
         android:layout_centerHorizontal="true"
         android:textSize="12pt"/>
@@ -22,22 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textSize="15pt"/>
-
-    <TextView android:text="note" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/noteOutputTextView"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/dummyTextView"
-        android:layout_centerHorizontal="true"
-        android:textSize="15pt"/>
-
-    <TextView android:text="hz" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/freqOutputTextView"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/noteOutputTextView"
-        android:textSize="10pt"/>
 
     <com.sevag.pitcha.gauge.NeedleGauge
         android:id="@+id/needlegauge"
