@@ -21,6 +21,8 @@ public class Scale {
     public static final int MIN_VALUE = 90;
     public static final int MAX_VALUE = 110;
 
+    public static String NOTE_STRING = "n/a";
+
     public Scale() {
         scalePaint = new Paint();
         scalePaint.setStyle(Paint.Style.FILL);
@@ -55,11 +57,15 @@ public class Scale {
 
             int value = notchToDegree(i);
 
-            if (value >= MIN_VALUE && value <= MAX_VALUE) {
-                if ((value == 95) || (value == 100) || (value == 105)) {
-                    String valueString = Integer.toString(value);
-                    canvas.drawText(valueString, 0.5f, y2 - 0.015f, scalePaint);
-                }
+            switch(value) {
+                case 95:
+                    canvas.drawText("-5%", 0.5f, y2 - 0.015f, scalePaint);
+                    break;
+                case 100:
+                    canvas.drawText(NOTE_STRING, 0.5f, y2 - 0.015f, scalePaint);
+                    break;
+                case 105:
+                    canvas.drawText("+5%", 0.5f, y2 - 0.015f, scalePaint);
             }
             canvas.rotate(VALUES_PER_NOTCH, 0.5f, 0.5f);
         }

@@ -3,10 +3,9 @@ package com.sevag.pitcha.gauge;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -29,7 +28,6 @@ public final class NeedleGauge extends View {
     private RectF faceRect;
 
     private Paint backgroundPaint;
-
     private Bitmap background;
 
     public NeedleGauge(Context context) {
@@ -55,33 +53,6 @@ public final class NeedleGauge extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        Bundle bundle = (Bundle) state;
-        Parcelable superState = bundle.getParcelable("superState");
-        super.onRestoreInstanceState(superState);
-
-        handComponent.handPosition = bundle.getFloat("handPosition");
-        handComponent.handTarget = bundle.getFloat("handTarget");
-        handComponent.handVelocity = bundle.getFloat("handVelocity");
-        handComponent.handAcceleration = bundle.getFloat("handAcceleration");
-        handComponent.lastHandMoveTime = bundle.getLong("lastHandMoveTime");
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-
-        Bundle state = new Bundle();
-        state.putParcelable("superState", superState);
-        state.putFloat("handPosition", handComponent.handPosition);
-        state.putFloat("handTarget", handComponent.handTarget);
-        state.putFloat("handVelocity", handComponent.handVelocity);
-        state.putFloat("handAcceleration", handComponent.handAcceleration);
-        state.putLong("lastHandMoveTime", handComponent.lastHandMoveTime);
-        return state;
     }
 
     private void init() {
@@ -134,31 +105,9 @@ public final class NeedleGauge extends View {
     }
 
     private void drawBackground(Canvas canvas) {
-        if (background == null) {
-        } else {
+        if (background != null) {
             canvas.drawBitmap(background, 0, 0, backgroundPaint);
         }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        drawBackground(canvas);
-
-        float scale = (float) getWidth();
-        canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.scale(scale, scale);
-
-        handComponent.drawHand();
-        canvas.restore();
-
-        if (handComponent.handNeedsToMove()) {
-            handComponent.moveHand();
-        }
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        regenerateBackground();
     }
 
     private void regenerateBackground() {
@@ -171,23 +120,31 @@ public final class NeedleGauge extends View {
 
         float scale = (float) getWidth();
         backgroundCanvas.scale(scale, scale);
-
         rimComponent.drawRim(backgroundCanvas);
         drawFace(backgroundCanvas);
         scaleComponent.drawScale(backgroundCanvas);
+        handComponent.drawHand(backgroundCanvas);
+    }
 
-        handComponent.setCanvas(backgroundCanvas);
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        drawBackground(canvas);
+        regenerateBackground();
     }
 
     public void setHandTarget(String note, double value) {
-        System.out.println("Value: " + value);
         if (value < Scale.MIN_VALUE) {
             value = Scale.MIN_VALUE;
         } else if (value > Scale.MAX_VALUE) {
             value = Scale.MAX_VALUE;
         }
         handComponent.handTarget = (float) value;
-        handComponent.handText = note;
+        scaleComponent.NOTE_STRING = note;
+
+        if (handComponent.handNeedsToMove()) {
+            handComponent.moveHand();
+        }
         invalidate();
     }
 }

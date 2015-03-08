@@ -28,7 +28,7 @@ public class NotePitchMap {
 
     public static void getNoteOf(double pitch, UIHelper uiHelper) {
         double percentCloseness = 0.0f;
-        String outputNote = "";
+        String outputNote = "n/a";
 
         double[] comparisonOctave;
         double[] octave = null;

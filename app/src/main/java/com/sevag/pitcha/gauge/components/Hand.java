@@ -17,7 +17,6 @@ public class Hand {
 
     public float handPosition = Scale.CENTER_VALUE;
     public float handTarget = Scale.CENTER_VALUE;
-    public String handText = "";
     public float handVelocity = 0.0f;
     public float handAcceleration = 0.0f;
     public long lastHandMoveTime = -1L;
@@ -25,7 +24,6 @@ public class Hand {
     private Paint handPaint;
     private Path handPath;
     private Paint handScrewPaint;
-    private Paint handTextPaint;
 
     public Hand(View view) {
         this.parentView = view;
@@ -34,13 +32,6 @@ public class Hand {
         handPaint.setAntiAlias(true);
         handPaint.setColor(Color.MAGENTA);
         handPaint.setStyle(Paint.Style.FILL);
-
-        /*
-        handTextPaint = new Paint();
-        handTextPaint.setAntiAlias(true);
-        handTextPaint.setColor(Color.GREEN);
-        handTextPaint.setStyle(Paint.Style.FILL);
-        */
 
         handPath = new Path();
         handPath.moveTo(0.5f, 0.5f + 0.2f);
@@ -57,19 +48,10 @@ public class Hand {
         handScrewPaint.setStyle(Paint.Style.FILL);
     }
 
-    private Canvas canvas;
-
-    public void setCanvas(Canvas canvas) {
-        this.canvas = canvas;
-    }
-
-    public void drawHand() {
+    public void drawHand(Canvas canvas) {
         float handAngle = degreeToAngle(handPosition);
-        canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.rotate(handAngle, 0.5f, 0.5f);
         canvas.drawPath(handPath, handPaint);
-        canvas.restore();
-        //canvas.drawText(handText, 0, 0, handTextPaint);
         canvas.drawCircle(0.5f, 0.5f, 0.01f, handScrewPaint);
     }
 
