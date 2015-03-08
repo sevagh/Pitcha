@@ -5,5 +5,5 @@ package com.sevag.pitcha.uihelper;
  */
 public interface UIHelper {
 
-    public void display(String note, String freq);
+    public void display(String note, double freq);
 }

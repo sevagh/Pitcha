@@ -34,7 +34,7 @@ public class NotePitchMap {
         int bestFitOctave = 0;
 
         if ((pitch < PITCH_LOW_LIMIT) || (pitch > PITCH_HIGH_LIMIT)) {
-            uiHelper.display(FAIL_CASE, Double.toString(pitch));
+            uiHelper.display(FAIL_CASE, pitch);
             return;
         } else {
             for (int i = 0; i < notes.length; i++) {
@@ -49,7 +49,7 @@ public class NotePitchMap {
         }
 
         if (octave == null) {
-            uiHelper.display(FAIL_CASE, Double.toString(pitch));
+            uiHelper.display(FAIL_CASE, pitch);
             return;
         }
 
@@ -65,9 +65,9 @@ public class NotePitchMap {
         }
 
         if (bestFitNoteIndex == -1) {
-            uiHelper.display(FAIL_CASE, Double.toString(pitch));
+            uiHelper.display(FAIL_CASE, pitch);
         } else {
-            uiHelper.display(noteNames[bestFitNoteIndex] + Integer.toString(bestFitOctave), Double.toString(pitch));
+            uiHelper.display(noteNames[bestFitNoteIndex] + Integer.toString(bestFitOctave), pitch);
         }
     }
 

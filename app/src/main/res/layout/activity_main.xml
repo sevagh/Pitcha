@@ -7,19 +7,11 @@
     android:id="@+id/action_settings"
     android:background="@android:color/black">
 
-    <TextView android:text="Pitcha" android:layout_width="wrap_content"
+    <TextView android:text="github.com/sevagh" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/titleOutputTextView"
         android:textColor="@android:color/white"
         android:layout_marginTop="50px"
-        android:layout_centerHorizontal="true"
-        android:textSize="20pt"/>
-
-    <TextView android:text="github.com/sevagh" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/subtitleOutputTextView"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/titleOutputTextView"
         android:layout_centerHorizontal="true"
         android:textSize="12pt"/>
 
@@ -47,7 +39,7 @@
         android:layout_below="@id/noteOutputTextView"
         android:textSize="10pt"/>
 
-    <com.sevag.pitcha.uihelper.NeedleGauge
+    <com.sevag.pitcha.gauge.NeedleGauge
         android:id="@+id/needlegauge"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
