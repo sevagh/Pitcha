@@ -63,7 +63,6 @@ public final class NeedleGauge extends View {
         Parcelable superState = bundle.getParcelable("superState");
         super.onRestoreInstanceState(superState);
 
-        handComponent.handInitialized = bundle.getBoolean("handInitialized");
         handComponent.handPosition = bundle.getFloat("handPosition");
         handComponent.handTarget = bundle.getFloat("handTarget");
         handComponent.handVelocity = bundle.getFloat("handVelocity");
@@ -77,7 +76,6 @@ public final class NeedleGauge extends View {
 
         Bundle state = new Bundle();
         state.putParcelable("superState", superState);
-        state.putBoolean("handInitialized", handComponent.handInitialized);
         state.putFloat("handPosition", handComponent.handPosition);
         state.putFloat("handTarget", handComponent.handTarget);
         state.putFloat("handVelocity", handComponent.handVelocity);
@@ -147,11 +145,14 @@ public final class NeedleGauge extends View {
         drawBackground(canvas);
 
         float scale = (float) getWidth();
+        canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.scale(scale, scale);
+
+        handComponent.drawHand();
+        canvas.restore();
 
         if (handComponent.handNeedsToMove()) {
             handComponent.moveHand();
-            handComponent.drawHand();
         }
     }
 
@@ -179,6 +180,7 @@ public final class NeedleGauge extends View {
     }
 
     public void setHandTarget(String note, double value) {
+        System.out.println("Value: " + value);
         if (value < Scale.MIN_VALUE) {
             value = Scale.MIN_VALUE;
         } else if (value > Scale.MAX_VALUE) {

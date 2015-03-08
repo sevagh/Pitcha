@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.view.View;
 
 /**
@@ -13,7 +15,6 @@ public class Hand {
 
     private View parentView;
 
-    public boolean handInitialized = false;
     public float handPosition = Scale.CENTER_VALUE;
     public float handTarget = Scale.CENTER_VALUE;
     public String handText = "";
@@ -25,8 +26,6 @@ public class Hand {
     private Path handPath;
     private Paint handScrewPaint;
     private Paint handTextPaint;
-
-    private Canvas canvas;
 
     public Hand(View view) {
         this.parentView = view;
@@ -58,16 +57,19 @@ public class Hand {
         handScrewPaint.setStyle(Paint.Style.FILL);
     }
 
-    public void setCanvas(Canvas canvasParam) {
-        this.canvas = canvasParam;
+    private Canvas canvas;
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
     }
 
     public void drawHand() {
         float handAngle = degreeToAngle(handPosition);
+        canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.rotate(handAngle, 0.5f, 0.5f);
         canvas.drawPath(handPath, handPaint);
+        canvas.restore();
         //canvas.drawText(handText, 0, 0, handTextPaint);
-
         canvas.drawCircle(0.5f, 0.5f, 0.01f, handScrewPaint);
     }
 
@@ -103,7 +105,6 @@ public class Hand {
             } else {
                 lastHandMoveTime = System.currentTimeMillis();
             }
-            parentView.invalidate();
         } else {
             lastHandMoveTime = System.currentTimeMillis();
             moveHand();
