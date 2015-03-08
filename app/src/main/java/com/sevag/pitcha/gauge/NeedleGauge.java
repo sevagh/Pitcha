@@ -111,10 +111,6 @@ public final class NeedleGauge extends View {
     }
 
     private void regenerateBackground() {
-        if (background != null) {
-            background.recycle();
-        }
-
         background = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         Canvas backgroundCanvas = new Canvas(background);
 
