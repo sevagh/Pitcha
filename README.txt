@@ -2,7 +2,7 @@
 GOOGLE PLAY STORE LINK
 ======================
 
-*coming soon*
+https://play.google.com/store/apps/details?id=com.sevag.pitcha
 
 ======
 PITCHA
