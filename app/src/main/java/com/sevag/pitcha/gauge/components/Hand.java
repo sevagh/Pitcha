@@ -12,26 +12,26 @@ import android.view.View;
  * Created by sevag on 3/8/15.
  */
 public class Hand {
-
-    private View parentView;
-
     public float handPosition = Scale.CENTER_VALUE;
     public float handTarget = Scale.CENTER_VALUE;
     public float handVelocity = 0.0f;
     public float handAcceleration = 0.0f;
     public long lastHandMoveTime = -1L;
 
-    private Paint handPaint;
+    private Paint handBadPaint, handGoodPaint;
     private Path handPath;
     private Paint handScrewPaint;
 
-    public Hand(View view) {
-        this.parentView = view;
+    public Hand() {
+        handBadPaint = new Paint();
+        handBadPaint.setAntiAlias(true);
+        handBadPaint.setColor(Color.RED);
+        handBadPaint.setStyle(Paint.Style.FILL);
 
-        handPaint = new Paint();
-        handPaint.setAntiAlias(true);
-        handPaint.setColor(Color.MAGENTA);
-        handPaint.setStyle(Paint.Style.FILL);
+        handGoodPaint = new Paint();
+        handGoodPaint.setAntiAlias(true);
+        handGoodPaint.setColor(Color.GREEN);
+        handGoodPaint.setStyle(Paint.Style.FILL);
 
         handPath = new Path();
         handPath.moveTo(0.5f, 0.5f + 0.2f);
@@ -51,7 +51,11 @@ public class Hand {
     public void drawHand(Canvas canvas) {
         float handAngle = degreeToAngle(handPosition);
         canvas.rotate(handAngle, 0.5f, 0.5f);
-        canvas.drawPath(handPath, handPaint);
+        if ((handPosition >= 99.0f) && (handPosition <= 101.0f)) {
+            canvas.drawPath(handPath, handGoodPaint);
+        } else {
+            canvas.drawPath(handPath, handBadPaint);
+        }
         canvas.drawCircle(0.5f, 0.5f, 0.01f, handScrewPaint);
     }
 

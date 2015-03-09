@@ -32,6 +32,7 @@ public class NotePitchMap {
 
         double[] comparisonOctave;
         double[] octave = null;
+        int bestFitOctave = 0;
 
         if ((pitch < PITCH_LOW_LIMIT) || (pitch > PITCH_HIGH_LIMIT)) {
             uiHelper.display(outputNote, percentCloseness);
@@ -42,6 +43,7 @@ public class NotePitchMap {
                 if ((pitch > (comparisonOctave[0] - ALLOWABLE_ERROR)) &&
                         (pitch < (comparisonOctave[notes[i].length - 1] + ALLOWABLE_ERROR))) {
                     octave = comparisonOctave;
+                    bestFitOctave = i;
                     break;
                 }
             }
@@ -64,7 +66,7 @@ public class NotePitchMap {
         }
 
         percentCloseness = (pitch / octave[bestFitNoteIndex]) * 100;
-        outputNote = noteNames[bestFitNoteIndex];
+        outputNote = noteNames[bestFitNoteIndex] + Integer.toString(bestFitOctave);
 
 
         uiHelper.display(outputNote, percentCloseness);

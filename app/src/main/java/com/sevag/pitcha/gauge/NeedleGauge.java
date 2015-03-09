@@ -3,7 +3,6 @@ package com.sevag.pitcha.gauge;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -15,7 +14,7 @@ import com.sevag.pitcha.gauge.components.Scale;
 
 public final class NeedleGauge extends View {
     private Rim rimComponent = new Rim();
-    private Hand handComponent = new Hand(this);
+    private Hand handComponent = new Hand();
     private Scale scaleComponent = new Scale();
 
     private RectF rimRect = rimComponent.getRimRect();
@@ -135,6 +134,7 @@ public final class NeedleGauge extends View {
         } else if (value > Scale.MAX_VALUE) {
             value = Scale.MAX_VALUE;
         }
+
         handComponent.handTarget = (float) value;
         scaleComponent.NOTE_STRING = note;
 
