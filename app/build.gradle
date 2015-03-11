@@ -9,8 +9,14 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         maxSdkVersion 21
-        versionCode 4
-        versionName "2.0"
+        versionCode 5
+        versionName "2.1"
+
+        ndk {
+            moduleName "pitchalib"
+            ldLibs "log", "z", "m"
+            cFlags "-Werror -Wall -O2"
+        }
     }
     buildTypes {
         release {
