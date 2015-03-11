@@ -26,11 +26,12 @@ INSTALL
 
 The repository is an Android Studio project.
 
-To just install the app, download the .apk file in latest/ onto your Android device and install it.
+To install the app, download it from the Play Store link above, or
+download the app-release.apk file in app/ from this repo.
 
 =================
 BUGS AND FEATURES
 =================
 
-Feel free to report or submit fixes for any bug you find.
-Feel free to request or submit features.
+Feel free to report or submit fixes for bugs, and to request request
+or submit features.
