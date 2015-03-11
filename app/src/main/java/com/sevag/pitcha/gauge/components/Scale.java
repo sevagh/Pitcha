@@ -26,7 +26,7 @@ public class Scale {
     public Scale() {
         scalePaint = new Paint();
         scalePaint.setStyle(Paint.Style.FILL);
-        scalePaint.setColor(Color.BLACK);
+        scalePaint.setColor(Color.argb(255, 0x55, 0x55, 0x55));
         scalePaint.setStrokeWidth(0.005f);
         scalePaint.setAntiAlias(true);
 

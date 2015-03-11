@@ -19,7 +19,7 @@ public class Rim {
         rimCirclePaint = new Paint();
         rimCirclePaint.setAntiAlias(true);
         rimCirclePaint.setStyle(Paint.Style.FILL);
-        rimCirclePaint.setColor(Color.CYAN);
+        rimCirclePaint.setColor(Color.argb(255, 0x70, 0xDB, 0xDB));
         rimCirclePaint.setStrokeWidth(0.005f);
     }
 

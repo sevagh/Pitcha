@@ -44,7 +44,7 @@ public class Hand {
 
         handScrewPaint = new Paint();
         handScrewPaint.setAntiAlias(true);
-        handScrewPaint.setColor(Color.CYAN);
+        handScrewPaint.setColor(Color.BLACK);
         handScrewPaint.setStyle(Paint.Style.FILL);
     }
 
