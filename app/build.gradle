@@ -7,10 +7,10 @@ android {
     defaultConfig {
         applicationId "com.sevag.pitcha"
         minSdkVersion 15
-        targetSdkVersion 15
-        maxSdkVersion 15
-        versionCode 3
-        versionName "1.1"
+        targetSdkVersion 21
+        maxSdkVersion 21
+        versionCode 4
+        versionName "2.0"
     }
     buildTypes {
         release {
