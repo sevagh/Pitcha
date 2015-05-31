@@ -1,18 +1,19 @@
 package com.sevag.pitcha;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.*;
 import android.os.Process;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.TextView;
 import com.sevag.pitcha.recording.AudioRecorder;
-import com.sevag.pitcha.gauge.NeedleGauge;
 import com.sevag.pitcha.uihelper.UIHelper;
 
 public class MainActivity extends Activity implements UIHelper {
 
-    private NeedleGauge needleGauge;
+    private TextView noteTextView;
     private Thread audioThread;
 
     @Override
@@ -20,18 +21,7 @@ public class MainActivity extends Activity implements UIHelper {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        needleGauge = (NeedleGauge) findViewById(R.id.needlegauge);
-    }
-
-    private void launchPitcha() {
-        audioThread = new Thread(new Runnable() {
-            public void run() {
-                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
-                AudioRecorder.run();
-            }
-        });
-
-        audioThread.start();
+        noteTextView = (TextView) findViewById(R.id.noteOutputTextView);
     }
 
     @Override
@@ -39,7 +29,17 @@ public class MainActivity extends Activity implements UIHelper {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                needleGauge.setHandTarget(note, err);
+                if (!note.isEmpty()) {
+                    if ((99.5 < err) && (err < 100.5)) {
+                        noteTextView.setText(note);
+                        noteTextView.setTextColor(Color.GREEN);
+                    } else {
+                        noteTextView.setText(note);
+                        noteTextView.setTextColor(Color.RED);
+                    }
+                } else {
+                    noteTextView.setText("");
+                }
             }
         });
     }
@@ -71,6 +71,17 @@ public class MainActivity extends Activity implements UIHelper {
     private void startHook() {
         AudioRecorder.init(this);
         launchPitcha();
+    }
+
+    private void launchPitcha() {
+        audioThread = new Thread(new Runnable() {
+            public void run() {
+                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_DEFAULT);
+                AudioRecorder.run();
+            }
+        });
+
+        audioThread.start();
     }
 
     @Override

@@ -26,9 +26,9 @@ public class NotePitchMap {
 
     private static final double ALLOWABLE_ERROR = 1.2; //hz
 
-    public static void getNoteOf(double pitch, UIHelper uiHelper) {
+    public static void displayNoteOf(double pitch, UIHelper uiHelper) {
         double percentCloseness = 0.0f;
-        String outputNote = "n/a";
+        String outputNote = "";
 
         double[] comparisonOctave;
         double[] octave = null;
@@ -67,7 +67,6 @@ public class NotePitchMap {
 
         percentCloseness = (pitch / octave[bestFitNoteIndex]) * 100;
         outputNote = noteNames[bestFitNoteIndex] + Integer.toString(bestFitOctave);
-
 
         uiHelper.display(outputNote, percentCloseness);
     }

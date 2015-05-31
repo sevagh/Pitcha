@@ -31,17 +31,17 @@ public class AudioRecorder {
         uiHelper = paramUiHelper;
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, N * 10);
         shouldStop = false;
+        recorder.startRecording();
     }
 
     public static void run() {
         while ((shouldStop == false)) {
             try {
-                recorder.startRecording();
                 recorder.read(data, 0, data.length);
                 double pitch = mpm.getPitchFromShort(data);
-                NotePitchMap.getNoteOf(pitch, uiHelper);
-                recorder.stop();
+                NotePitchMap.displayNoteOf(pitch, uiHelper);
             } catch (Throwable x) {
+                x.printStackTrace();
                 System.exit(-1);
             }
         }

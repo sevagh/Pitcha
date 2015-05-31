@@ -13,7 +13,6 @@ import java.util.List;
 public final class MPM {
 
     public static final int DEFAULT_BUFFER_SIZE = 1024;
-    public static final int DEFAULT_OVERLAP = 768;
     private static final double DEFAULT_CUTOFF = 0.97;
     private static final double SMALL_CUTOFF = 0.5;
     private static final double LOWER_PITCH_CUTOFF = 80.0; // Hz
