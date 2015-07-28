@@ -4,6 +4,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
+import com.sevag.pitcha.dsp.MPM;
 import com.sevag.pitcha.music.NotePitchMap;
 import com.sevag.pitcha.uihelper.UIHelper;
 
@@ -23,6 +24,7 @@ public class AudioRecorder {
     private static final int SAMPLE_RATE = 48000;
     private static final int SAMPLES = 1024;
     private static boolean shouldStop = false;
+    private static final MPM mpm = new MPM(SAMPLE_RATE, SAMPLES, 0.93);
     private static int N;
     private static UIHelper uiHelper;
 
@@ -42,9 +44,10 @@ public class AudioRecorder {
         while ((shouldStop == false)) {
             try {
                 recorder.read(data, 0, data.length);
-                double pitch = get_pitch_from_short(data);
-                NotePitchMap.displayNoteOf(pitch, uiHelper);
-                recorder.stop();
+                double pitch1 = mpm.getPitchFromShort(data);
+                double pitch2 = get_pitch_from_short(data);
+                System.out.println("Pitch1: " + pitch1 + ", pitch2: " + pitch2);
+                NotePitchMap.displayNoteOf(pitch1, uiHelper);
             } catch (Throwable x) {
                 x.printStackTrace();
                 System.exit(-1);
