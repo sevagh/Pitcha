@@ -1,8 +1,10 @@
-======================
-GOOGLE PLAY STORE LINK
-======================
+===========
+STORE LINKS
+===========
 
-https://play.google.com/store/apps/details?id=com.sevag.pitcha
+* https://play.google.com/store/apps/details?id=com.sevag.pitcha
+
+* http://www.amazon.com/sevagh-Pitcha/dp/B0172GFSDS/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1450517577&sr=1-1&keywords=pitcha
 
 ======
 PITCHA
