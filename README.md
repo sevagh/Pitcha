@@ -1,3 +1,7 @@
+# ANNOUNCEMENT
+
+To those of you who land on this page, this project is no longer maintained. I invite you to check out [my Python transcriber web app](https://github.com/sevagh/py-transcriber) instead.
+
 # Store links
 
 * https://play.google.com/store/apps/details?id=com.sevag.pitcha
