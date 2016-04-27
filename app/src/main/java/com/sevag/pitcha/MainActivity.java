@@ -1,20 +1,26 @@
 package com.sevag.pitcha;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.*;
 import android.os.Process;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.Manifest;
 
 import android.widget.TextView;
 import com.sevag.pitcha.recording.AudioRecorder;
 import com.sevag.pitcha.uihelper.UIHelper;
 
-public class MainActivity extends Activity implements UIHelper {
+public class MainActivity extends Activity implements UIHelper, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private TextView noteTextView;
     private Thread audioThread;
+    private final int REQUEST_AUDIO_RECORD = 0;
+    private boolean recordPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,40 +75,62 @@ public class MainActivity extends Activity implements UIHelper {
     }
 
     private void startHook() {
+        handlePermissions();
         AudioRecorder.init(this);
         launchPitcha();
     }
 
-    private void launchPitcha() {
-        audioThread = new Thread(new Runnable() {
-            public void run() {
-                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_DEFAULT);
-                AudioRecorder.run();
-            }
-        });
+    private void handlePermissions() {
+        switch (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)) {
+            case PackageManager.PERMISSION_DENIED:
+                ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    REQUEST_AUDIO_RECORD);
+            case PackageManager.PERMISSION_GRANTED:
+                recordPermission = true;
+        }
+    }
 
-        audioThread.start();
+    private void launchPitcha() {
+        if (recordPermission) {
+            audioThread = new Thread(new Runnable() {
+                public void run() {
+                    android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_DEFAULT);
+                    AudioRecorder.run();
+                }
+            });
+            audioThread.start();
+        } else {
+            System.exit(-1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_AUDIO_RECORD: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    recordPermission = true;
+                }
+            }
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

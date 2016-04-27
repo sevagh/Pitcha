@@ -1,13 +1,10 @@
 /*created by sevagh*/
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <float.h>
 #include <limits.h>
 #include <jni.h>
 
 #define BUFFER_SIZE 1024
-#define DEFAULT_OVERLAP 768
 #define DEFAULT_CUTOFF 0.93 //0.97 is default
 #define SMALL_CUTOFF 0.5
 #define LOWER_PITCH_CUTOFF 80 //hz
@@ -32,7 +29,7 @@ double get_pitch_from_short(short *data);
 JNIEXPORT jdouble JNICALL Java_com_sevag_pitcha_recording_AudioRecorder_get_1pitch_1from_1short
   (JNIEnv *env, jclass cls, jshortArray arr)
 {
-    return (jdouble) get_pitch_from_short(arr);
+    return (jdouble) get_pitch_from_short((short *) arr);
 }
 
 double get_pitch_from_short(short *data)
