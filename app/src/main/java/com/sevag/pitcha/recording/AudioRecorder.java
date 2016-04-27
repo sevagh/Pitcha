@@ -25,14 +25,13 @@ public class AudioRecorder {
     private static final int SAMPLES = 1024;
     private static boolean shouldStop = false;
     private static final MPM mpm = new MPM(SAMPLE_RATE, SAMPLES, 0.93);
-    private static int N;
     private static UIHelper uiHelper;
 
     public AudioRecorder() {
     }
 
     public static void init(UIHelper paramUiHelper) {
-        N = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        int N = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
         data = new short[SAMPLES];
         uiHelper = paramUiHelper;
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, N * 10);
@@ -41,7 +40,7 @@ public class AudioRecorder {
     }
 
     public static void run() {
-        while ((shouldStop == false)) {
+        while ((!shouldStop)) {
             try {
                 recorder.read(data, 0, data.length);
                 double pitch1 = mpm.getPitchFromShort(data);
@@ -53,7 +52,6 @@ public class AudioRecorder {
                 System.exit(-1);
             }
         }
-        return;
     }
 
     public static void deinit() {

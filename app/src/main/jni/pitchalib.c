@@ -19,8 +19,7 @@ double turning_point_x, turning_point_y;
 
 int max_positions[BUFFER_SIZE];
 
-//double nsdf[BUFFER_SIZE];
-double *nsdf;
+double nsdf[BUFFER_SIZE];
 double period_estimates[BUFFER_SIZE];
 double amp_estimates[BUFFER_SIZE];
 
@@ -59,7 +58,6 @@ double get_pitch_from_short(short *data)
 static void normalized_square_difference(double *audio_buffer)
 {
 	int tau;
-	double nsdf_loc[BUFFER_SIZE];
 	for (tau = 0; tau < BUFFER_SIZE; tau++) {
 		double acf = 0;
 		double divisorM = 0;
@@ -68,9 +66,8 @@ static void normalized_square_difference(double *audio_buffer)
 			acf += audio_buffer[i] * audio_buffer[i + tau];
 			divisorM += audio_buffer[i] * audio_buffer[i] + audio_buffer[i + tau] * audio_buffer[i + tau];
 		}
-		nsdf_loc[tau] = 2 * acf / divisorM;
+		nsdf[tau] = 2 * acf / divisorM;
 	}
-	nsdf = nsdf_loc;
 }
 
 static void parabolic_interpolation(int tau)
