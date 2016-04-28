@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.1"
 
     defaultConfig {
-        applicationId "com.sevag.pitcha"
+        applicationId "io.sevag.pitcha"
         minSdkVersion 23
         targetSdkVersion 23
         maxSdkVersion 23

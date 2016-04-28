@@ -26,10 +26,12 @@ static double get_pitch(double *data);
 static void normalized_square_difference(double *audio_buffer);
 double get_pitch_from_short(short *data);
 
-JNIEXPORT jdouble JNICALL Java_com_sevag_pitcha_recording_AudioRecorder_get_1pitch_1from_1short
-  (JNIEnv *env, jclass cls, jshortArray arr)
-{
-    return (jdouble) get_pitch_from_short((short *) arr);
+
+extern "C" {
+    JNIEXPORT jdouble JNICALL Java_io_sevag_pitcha_recording_AudioRecorder_get_1pitch_1from_1short
+            (JNIEnv *env, jclass cls, jshortArray arr) {
+        return (jdouble) get_pitch_from_short((short *) arr);
+    }
 }
 
 double get_pitch_from_short(short *data)

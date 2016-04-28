@@ -1,12 +1,12 @@
-package com.sevag.pitcha.recording;
+package io.sevag.pitcha.recording;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
-import com.sevag.pitcha.dsp.MPM;
-import com.sevag.pitcha.music.NotePitchMap;
-import com.sevag.pitcha.uihelper.UIHelper;
+import io.sevag.pitcha.dsp.MPM;
+import io.sevag.pitcha.music.NotePitchMap;
+import io.sevag.pitcha.uihelper.UIHelper;
 
 /**
  * Created by sevag on 11/25/14.

@@ -1,4 +1,4 @@
-package com.sevag.pitcha;
+package io.sevag.pitcha;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.Manifest;
 
 import android.widget.TextView;
-import com.sevag.pitcha.recording.AudioRecorder;
-import com.sevag.pitcha.uihelper.UIHelper;
+import io.sevag.pitcha.recording.AudioRecorder;
+import io.sevag.pitcha.uihelper.UIHelper;
 
 public class MainActivity extends Activity implements UIHelper, ActivityCompat.OnRequestPermissionsResultCallback {
 
