@@ -30,7 +30,10 @@ double get_pitch_from_short(short *data);
 extern "C" {
     JNIEXPORT jdouble JNICALL Java_io_sevag_pitcha_recording_AudioRecorder_get_1pitch_1from_1short
             (JNIEnv *env, jclass cls, jshortArray arr) {
-        return (jdouble) get_pitch_from_short((short *) arr);
+        int numSamples = env->GetArrayLength(arr);
+        short *c_arr = new short[numSamples];
+        env->GetShortArrayRegion(arr, 0, numSamples, c_arr);
+        return (jdouble) get_pitch_from_short(c_arr);
     }
 }
 
