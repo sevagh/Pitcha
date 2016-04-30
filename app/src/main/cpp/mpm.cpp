@@ -8,7 +8,6 @@
 #define DEFAULT_CUTOFF 0.93 //0.97 is default
 #define SMALL_CUTOFF 0.5
 #define LOWER_PITCH_CUTOFF 80 //hz
-#define SAMPLE_RATE 48000
 
 #define MAX(a,b) ((a < b) ?  (b) : (a))
 
@@ -22,22 +21,22 @@ double amp_estimates[BUFFER_SIZE];
 
 int max_positions_ptr, period_estimates_ptr, amp_estimates_ptr;
 
-static double get_pitch(double *data);
+static double get_pitch(double *data, int sample_rate);
 static void normalized_square_difference(double *audio_buffer);
-double get_pitch_from_short(short *data);
+double get_pitch_from_short(short *data, int sample_rate);
 
 
 extern "C" {
     JNIEXPORT jdouble JNICALL Java_io_sevag_pitcha_recording_AudioRecorder_get_1pitch_1from_1short
-            (JNIEnv *env, jclass cls, jshortArray arr) {
+            (JNIEnv *env, jclass cls, jshortArray arr, jint sampleRate) {
         int numSamples = env->GetArrayLength(arr);
         short *c_arr = new short[numSamples];
         env->GetShortArrayRegion(arr, 0, numSamples, c_arr);
-        return (jdouble) get_pitch_from_short(c_arr);
+        return (jdouble) get_pitch_from_short(c_arr, sampleRate);
     }
 }
 
-double get_pitch_from_short(short *data)
+double get_pitch_from_short(short *data, int sample_rate)
 {
 	double double_data[BUFFER_SIZE];
 
@@ -54,7 +53,7 @@ double get_pitch_from_short(short *data)
 					   /(double) maxshort);
 	}
 
-	return get_pitch(double_data);
+	return get_pitch(double_data, sample_rate);
 }
 
 static void normalized_square_difference(double *audio_buffer)
@@ -94,17 +93,14 @@ static void peak_picking()
 	int pos = 0;
 	int curMaxPos = 0;
 
-	// find the first negative zero crossing
 	while (pos < (BUFFER_SIZE - 1) / 3 && nsdf[pos] > 0) {
 		pos++;
 	}
 
-	// loop over all the values below zero
 	while (pos < BUFFER_SIZE - 1 && nsdf[pos] <= 0.0) {
 		pos++;
 	}
 
-	// can happen if output[0] is NAN
 	if (pos == 0) {
 		pos = 1;
 	}
@@ -112,33 +108,28 @@ static void peak_picking()
 	while (pos < BUFFER_SIZE - 1) {
 		if (nsdf[pos] > nsdf[pos - 1] && nsdf[pos] >= nsdf[pos + 1]) {
 			if (curMaxPos == 0) {
-				// the first max (between zero crossings)
 				curMaxPos = pos;
 			} else if (nsdf[pos] > nsdf[curMaxPos]) {
-				// a higher max (between the zero crossings)
 				curMaxPos = pos;
 			}
 		}
 		pos++;
-		// a negative zero crossing
 		if (pos < BUFFER_SIZE - 1 && nsdf[pos] <= 0) {
-			// if there was a maximum add it to the list of maxima
 			if (curMaxPos > 0) {
 				max_positions[max_positions_ptr++] = curMaxPos;
-				curMaxPos = 0; // clear the maximum position, so we start
-				// looking for a new ones
+				curMaxPos = 0;
 			}
 			while (pos < BUFFER_SIZE - 1 && nsdf[pos] <= 0.0f) {
-				pos++; // loop over all the values below zero
+				pos++;
 			}
 		}
 	}
-	if (curMaxPos > 0) { // if there was a maximum in the last part
-		max_positions[max_positions_ptr++] = curMaxPos; // add it to the vector of maxima
+	if (curMaxPos > 0) {
+		max_positions[max_positions_ptr++] = curMaxPos;
 	}
 }
 
-static double get_pitch(double *audio_buffer)
+static double get_pitch(double *audio_buffer, int sample_rate)
 {
 	double pitch;
 
@@ -178,7 +169,7 @@ static double get_pitch(double *audio_buffer)
 		}
 
 		double period = period_estimates[periodIndex];
-		double pitchEstimate = (double) (SAMPLE_RATE / period);
+		double pitchEstimate = (double) (sample_rate / period);
 		if (pitchEstimate > LOWER_PITCH_CUTOFF) {
 			pitch = pitchEstimate;
 		} else {

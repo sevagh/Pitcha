@@ -17,7 +17,7 @@ public class AudioRecorder {
         System.loadLibrary("mpm");
     }
 
-    public static native double get_pitch_from_short(short[] data);
+    public static native double get_pitch_from_short(short[] data, int sampleRate);
 
     private static AudioRecord recorder;
     private static short[] data;
@@ -25,6 +25,7 @@ public class AudioRecorder {
     private static boolean shouldStop = false;
     private static UIHelper uiHelper;
     private static MPM mpm;
+    private static int sampleRate;
 
     public AudioRecorder() {
     }
@@ -43,7 +44,7 @@ public class AudioRecorder {
     }
 
     public static void init(UIHelper paramUiHelper) {
-        int sampleRate = getMaxValidSampleRate();
+        sampleRate = getMaxValidSampleRate();
         mpm = new MPM(sampleRate, SAMPLES, 0.93);
         int N = AudioRecord.getMinBufferSize(sampleRate,
                 AudioFormat.CHANNEL_IN_MONO,
@@ -64,7 +65,7 @@ public class AudioRecorder {
             try {
                 recorder.read(data, 0, data.length);
                 double pitch1 = mpm.getPitchFromShort(data);
-                double pitch2 = get_pitch_from_short(data);
+                double pitch2 = get_pitch_from_short(data, sampleRate);
                 System.out.println("Pitch1: " + pitch1 + ", pitch2: " + pitch2);
                 NotePitchMap.displayNoteOf(pitch1, uiHelper);
             } catch (Throwable x) {
