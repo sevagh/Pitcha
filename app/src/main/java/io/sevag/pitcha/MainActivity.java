@@ -86,8 +86,10 @@ public class MainActivity extends Activity implements UIHelper, ActivityCompat.O
                 ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.RECORD_AUDIO},
                     REQUEST_AUDIO_RECORD);
+                break;
             case PackageManager.PERMISSION_GRANTED:
                 recordPermission = true;
+                break;
         }
     }
 
@@ -134,3 +136,4 @@ public class MainActivity extends Activity implements UIHelper, ActivityCompat.O
         return super.onOptionsItemSelected(item);
     }
 }
+

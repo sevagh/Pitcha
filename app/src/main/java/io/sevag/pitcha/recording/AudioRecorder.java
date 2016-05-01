@@ -26,6 +26,7 @@ public class AudioRecorder {
     private static UIHelper uiHelper;
     private static MPM mpm;
     private static int sampleRate;
+    private static int useNdk = 0;
 
     public AudioRecorder() {
     }
@@ -64,10 +65,16 @@ public class AudioRecorder {
         while ((!shouldStop)) {
             try {
                 recorder.read(data, 0, data.length);
-                double pitch1 = mpm.getPitchFromShort(data);
-                double pitch2 = get_pitch_from_short(data, sampleRate);
-                System.out.println("Pitch1: " + pitch1 + ", pitch2: " + pitch2);
-                NotePitchMap.displayNoteOf(pitch1, uiHelper);
+                double pitch = 0.0;
+                switch (useNdk) {
+                    case 0:
+                        pitch = mpm.getPitchFromShort(data);
+                        break;
+                    case 1:
+                        pitch = get_pitch_from_short(data, sampleRate);
+                        break;
+                }
+                NotePitchMap.displayNoteOf(pitch, uiHelper);
             } catch (Throwable x) {
                 x.printStackTrace();
                 System.exit(-1);
@@ -79,5 +86,13 @@ public class AudioRecorder {
         shouldStop = true;
         recorder.stop();
         recorder.release();
+    }
+
+    public static void enableNdk() {
+       useNdk = 1;
+    }
+
+    public static void disableNdk() {
+       useNdk = 0;
     }
 }
