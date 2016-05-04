@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.Manifest;
 
 import android.widget.TextView;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton;
 import io.sevag.pitcha.recording.AudioRecorder;
 import io.sevag.pitcha.uihelper.UIHelper;
 
@@ -28,6 +30,16 @@ public class MainActivity extends Activity implements UIHelper, ActivityCompat.O
         setContentView(R.layout.activity_main);
 
         noteTextView = (TextView) findViewById(R.id.noteOutputTextView);
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.ndkToggleBtn);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AudioRecorder.enableNdk();
+                } else {
+                    AudioRecorder.disableNdk();
+                }
+            }
+        });
     }
 
     @Override

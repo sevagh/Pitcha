@@ -3,5 +3,8 @@
 
     <string name="app_name">Pitcha</string>
     <string name="action_settings">Settings</string>
+    <string name="repo_url">github.com/sevagh/Pitcha</string>
+    <string name="ndkOn">NDK</string>
+    <string name="ndkOff">NDK</string>
 
 </resources>
