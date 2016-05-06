@@ -1,4 +1,4 @@
-package com.sevag.pitcha.dsp;
+package io.sevag.pitcha.dsp;
 
 /*
  * Implementation of MPM adapted from the Tarsos DSP project

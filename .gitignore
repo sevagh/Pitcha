@@ -7,3 +7,4 @@
 /build
 /app/build
 *.iml
+/app/.externalNativeBuild
