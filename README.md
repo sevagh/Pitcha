@@ -8,7 +8,7 @@ This is a pitch detector for Android. It uses the McLeod Pitch Method, adapted f
 
 The MPM is implemented in both Java and C (via NDK). This is toggleable in the UI:
 
-![screenshot](https://github.com/sevagh/Pitcha/raw/master/.github/screenshot.png)
+<img src="https://github.com/sevagh/Pitcha/raw/master/.github/screenshot.png" width="200px">
 
 #### Benchmarks (DDMS)
 
