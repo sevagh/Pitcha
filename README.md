@@ -32,10 +32,7 @@ Proguard + [Redex](https://github.com/facebook/redex):
 
 ### Install
 
-The repository is an Android Studio project.
-
-To install the app, download it from the store links above, or
-download the app-release.apk file in app/ from this repo.
+The repository is an Android Studio project. To install the app, download it from the store links above (outdated), or build from this repo.
 
 ### Store links
 
