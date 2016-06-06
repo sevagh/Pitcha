@@ -34,9 +34,15 @@ Proguard + [Redex](https://github.com/facebook/redex):
 
 The repository is an Android Studio project. To install the app, download it from the store links above (outdated), or build from this repo.
 
+There are also apks in this repo:
+
+* [signed apk](https://github.com/sevagh/Pitcha/raw/master/app/app-release.apk)
+* [redex unsigned apk](https://github.com/sevagh/Pitcha/raw/master/app/app-redex.apk)
+* [redex signed apk](https://github.com/sevagh/Pitcha/raw/master/app/app-redex-signed.apk)
+
 ### Store links
 
 * https://play.google.com/store/apps/details?id=com.sevag.pitcha
 * http://www.amazon.com/sevagh-Pitcha/dp/B0172GFSDS/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1450517577&sr=1-1&keywords=pitcha
 
-Unfortunately I can no longer maintain the Play Store version since I lost the publish key.
+I can't update the Play Store version because of the `com.sevag -> io.sevag` refactoring.
