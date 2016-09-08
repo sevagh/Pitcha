@@ -1,4 +1,4 @@
-# Pitcha <img src=https://github.com/sevagh/Pitcha/raw/master/app/src/main/res/mipmap-hdpi/ic_launcher.png height="75px">
+# Pitcha <img src=https://github.com/sevagh/Pitcha/raw/master/app/src/main/res/mipmap-hdpi/ic_launcher.png height="30px">
 
 ### Description
 
