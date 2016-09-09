@@ -1,6 +1,6 @@
 # Pitcha <img src=app/src/main/res/mipmap-hdpi/ic_launcher.png height="30px">
 
-[![playstore](.static/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.sevag.pitcha) [![amzn](.static/amazon.eps)](http://www.amazon.com/sevagh-Pitcha/dp/B0172GFSDS/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1450517577&sr=1-1&keywords=pitcha)
+[![playstore](.static/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.sevag.pitcha) [![amzn](.static/amazon.png)](http://www.amazon.com/sevagh-Pitcha/dp/B0172GFSDS/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1450517577&sr=1-1&keywords=pitcha)
 
 
 ### Description
