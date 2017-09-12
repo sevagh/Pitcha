@@ -1,4 +1,4 @@
-package io.sevag.pitcha;
+package xyz.sevag.pitcha;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -14,8 +14,8 @@ import android.Manifest;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton;
-import io.sevag.pitcha.recording.AudioRecorder;
-import io.sevag.pitcha.uihelper.UIHelper;
+import xyz.sevag.pitcha.recording.AudioRecorder;
+import xyz.sevag.pitcha.uihelper.UIHelper;
 
 public class MainActivity extends Activity implements UIHelper, ActivityCompat.OnRequestPermissionsResultCallback {
 

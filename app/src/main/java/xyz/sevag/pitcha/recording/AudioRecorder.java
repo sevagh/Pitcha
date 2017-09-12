@@ -1,12 +1,12 @@
-package io.sevag.pitcha.recording;
+package xyz.sevag.pitcha.recording;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
-import io.sevag.pitcha.dsp.MPM;
-import io.sevag.pitcha.music.NotePitchMap;
-import io.sevag.pitcha.uihelper.UIHelper;
+import xyz.sevag.pitcha.dsp.MPM;
+import xyz.sevag.pitcha.music.NotePitchMap;
+import xyz.sevag.pitcha.uihelper.UIHelper;
 
 /**
  * Created by sevag on 11/25/14.
@@ -14,10 +14,10 @@ import io.sevag.pitcha.uihelper.UIHelper;
 public class AudioRecorder {
 
     static {
-        System.loadLibrary("mpm");
+        System.loadLibrary("pitch_detection");
     }
 
-    public static native double get_pitch_from_short(short[] data, int sampleRate);
+    public static native double get_pitch_mpm(double[] data, int sampleRate);
 
     private static AudioRecord recorder;
     private static short[] data;
@@ -71,7 +71,7 @@ public class AudioRecorder {
                         pitch = mpm.getPitchFromShort(data);
                         break;
                     case 1:
-                        pitch = get_pitch_from_short(data, sampleRate);
+                        pitch = get_pitch_mpm(mpm.convertShortToDouble(data), sampleRate);
                         break;
                 }
                 NotePitchMap.displayNoteOf(pitch, uiHelper);

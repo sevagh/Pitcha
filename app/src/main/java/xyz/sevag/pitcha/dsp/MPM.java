@@ -1,4 +1,4 @@
-package io.sevag.pitcha.dsp;
+package xyz.sevag.pitcha.dsp;
 
 /*
  * Implementation of MPM adapted from the Tarsos DSP project
@@ -50,7 +50,7 @@ public final class MPM {
         }
     }
 
-    public double getPitchFromShort(final short[] data) {
+    public double[] convertShortToDouble(final short[] data) {
         double[] doubleData = new double[data.length];
 
         short maxshort = 0;
@@ -63,7 +63,11 @@ public final class MPM {
         for (int i = 0; i < data.length; i++) {
             doubleData[i] = (double) ((double) data[i] * (double) Integer.MAX_VALUE / (double) maxshort);
         }
-        return getPitch(doubleData);
+        return doubleData;
+    }
+
+    public double getPitchFromShort(final short[] data) {
+        return getPitch(convertShortToDouble(data));
     }
 
     public double getPitch(final double[] audioBuffer) {

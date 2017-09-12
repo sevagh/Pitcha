@@ -1,4 +1,4 @@
-package io.sevag.pitcha.uihelper;
+package xyz.sevag.pitcha.uihelper;
 
 /**
  * Created by sevag on 11/24/14.

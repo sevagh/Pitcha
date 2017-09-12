@@ -1,6 +1,6 @@
-package io.sevag.pitcha.music;
+package xyz.sevag.pitcha.music;
 
-import io.sevag.pitcha.uihelper.UIHelper;
+import xyz.sevag.pitcha.uihelper.UIHelper;
 
 /**
  * Created by sevag on 11/28/14.

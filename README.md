@@ -1,3 +1,5 @@
+# __Pitcha is deprecated/no longer actively worked on__
+
 # Pitcha <img src=app/src/main/res/mipmap-hdpi/ic_launcher.png height="30px">
 
 [![amzn](.static/amazon.png)](http://www.amazon.com/sevagh-Pitcha/dp/B0172GFSDS/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1450517577&sr=1-1&keywords=pitcha)
@@ -7,7 +9,7 @@
 
 This is a pitch detector for Android. It uses the McLeod Pitch Method, adapted from [TarsosDSP](https://github.com/JorenSix/TarsosDSP).
 
-The MPM is implemented in both Java and C (via NDK). This is toggleable in the UI:
+The MPM is implemented in both Java and CPP (via NDK). The NDK library used is my own [pitch-detection](https://github.com/sevagh/pitch-detection). This is toggleable in the UI:
 
 <img src=".static/screenshot.png" width="200px">
 

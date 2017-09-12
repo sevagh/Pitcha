@@ -10,6 +10,17 @@ cmake_minimum_required(VERSION 3.4.1)
 # and CMake builds them for you. When you build your app, Gradle
 # automatically packages shared libraries with your APK.
 
-add_library( mpm
+add_library( pitch_detection
              SHARED
-             src/main/cpp/mpm.cpp )
+             IMPORTED)
+
+set_target_properties( # Specifies the target library.
+                       pitch_detection
+
+                       # Specifies the parameter you want to define.
+                       PROPERTIES IMPORTED_LOCATION
+
+                       # Provides the path to the library you want to import.
+                       /usr/local/lib/pitch_detection.so )
+
+include_directories( /usr/local/include/ )
